@@ -17,6 +17,8 @@ jobs:
         with:
           path: tocache/
           key: cache-${{ hashFiles('**/tocache') }}
+          restore-keys: |
+            cache-
       - name: "Create data to cache"
         if: steps.cache-step.outputs.cache-hit != 'true'
         run: |
