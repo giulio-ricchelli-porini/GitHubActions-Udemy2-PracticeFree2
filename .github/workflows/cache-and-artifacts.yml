@@ -7,8 +7,7 @@ jobs:
   cache-and-artifact-file:
     runs-on: ubuntu-latest
     outputs:
-      res:
-        value: ${{ steps.output-step.outputs.output-step.cache-hit }}
+      res: ${{ steps.output-step.outputs.output-step.cache-hit }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
