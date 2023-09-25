@@ -75,6 +75,6 @@ jobs:
           name: tocache-onlyfolder
       - name: "ls -a"
         run: ls -a
-      - name: "ls -a /folder"
-        run: ls -a /folder
+      - name: "ls -a folder"
+        run: ls -a folder
   
