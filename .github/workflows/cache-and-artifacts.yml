@@ -48,7 +48,7 @@ jobs:
       - name: "Display cache hit"
         run: echo ${{ needs.cache-and-artifact-file.outputs.res }}
       - name: "Download artifact"
-        uses: actions/download-artifact
+        uses: actions/download-artifact@v3
         with:
           name: tocache
       - name: "ls -a"
