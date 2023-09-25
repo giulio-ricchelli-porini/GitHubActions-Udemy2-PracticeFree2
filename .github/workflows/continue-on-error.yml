@@ -23,8 +23,7 @@ jobs:
       - name: "Return success"
         id: success-step
         run: |
-          step_var=$(( vars.SUCCESS_MESSAGE ))
-          echo "Message: $step_var"
+          echo "Message: ${{ vars.SUCCESS_MESSAGE }}"
           echo "result=dajepo" >> GITHUB_OUTPUT
   continue-job:
     runs-on: ubuntu-latest
