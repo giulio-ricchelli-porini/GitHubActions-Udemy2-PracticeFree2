@@ -22,7 +22,7 @@ jobs:
         run: |
           mkdir tocache/
           echo "${{ inputs.name }}" > tocache/file.txt
-          mkdir folder/
+          mkdir tocache/folder/
           echo "${{ inputs.name }}" > tocache/folder/file.txt
       - name: "Get file content"
         run: cat tocache/file.txt
