@@ -1,4 +1,4 @@
-name: "Check cotninue on error"
+name: "Check continue on error"
 on:
   workflow_dispatch:
 jobs:
@@ -15,7 +15,7 @@ jobs:
       - name: "Upload artifact"
         uses: actions/upload-artifact@v3
         with:
-          key: test-upload
+          name: test-upload
           path: test.txt
       - name: "Fail with continue-on-error"
         continue-on-error: true
