@@ -1,0 +1,29 @@
+name: "Check cotninue on error"
+on:
+  workflow_dispatch:
+jobs:
+  continue-step:
+    runs-on: ubuntu-latest
+    environment: dev
+    outputs:
+      result: ${{ steps.success-step.outputs.result }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "ls -a"
+        run: ls -a
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          key: test-upload
+          path: test.txt
+      - name: "Fail with continue-on-error"
+        continue-on-error: true
+        run: exit 1
+      - name: "Return success"
+        id: success-step
+        run: |
+          echo "Message: ${{ vars.SUCCESS_MESSAGE }}"
+          echo "result=$( ${{ vars.SUCCESS_MESSAGE }})" >> GITHUB_OUTPUT
+  
+        
