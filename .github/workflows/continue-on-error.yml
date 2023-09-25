@@ -22,8 +22,10 @@ jobs:
         run: exit 1
       - name: "Return success"
         id: success-step
+        env:
+          step-var: ${{ vars.SUCCESS_MESSAGE }}
         run: |
-          echo "Message: ${{ vars.SUCCESS_MESSAGE }}"
-          echo "result=$( ${{ vars.SUCCESS_MESSAGE }})" >> GITHUB_OUTPUT
+          echo "Message: $step-var"
+          echo "result=${{ vars.SUCCESS_MESSAGE }}" >> GITHUB_OUTPU
   
         
