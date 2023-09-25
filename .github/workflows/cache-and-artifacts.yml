@@ -4,8 +4,11 @@ on:
     inputs:
       name:
 jobs:
-  cache-file:
+  cache-and-artifact-file:
     runs-on: ubuntu-latest
+    outputs:
+      res:
+        value: ${{ steps.output-step.outputs.output-step.cache-hit }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -28,3 +31,24 @@ jobs:
           echo "${{ inputs.name }}" > tocache/folder/file.txt
       - name: "Get file content"
         run: cat tocache/file.txt
+      - name: "Upload artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          name: tocache
+          path: tocache/
+      - name: "Set output"
+        id: output-step
+        run: "cache-hit=${{ steps.cache-step.outputs.cache-hit }}" >> GITHUB_OUTPUT
+  download-artifact:
+    runs-on: ubuntu-latest
+    needs: cache-and-artifact-file
+    steps:
+      - name: "Display cache hit"
+        run: echo ${{ needs.cache-and-artifact-file.outputs.res }}
+      - name: "Download artifact"
+        uses: actions/download-artifact
+        with:
+          name: tocache
+      - name: "ls -a"
+        run: ls -a
+  
