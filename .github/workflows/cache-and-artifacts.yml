@@ -40,7 +40,7 @@ jobs:
         id: output-step
         env:
           VALUE: ${{ steps.cache-step.outputs.cache-hit }}
-        run: echo "cache-hit=$VALUE" >> "$GITHUB_OUTPUT"
+        run: echo "cache-hit=$(echo $VALUE)" >> $GITHUB_OUTPUT
   download-artifact:
     runs-on: ubuntu-latest
     needs: cache-and-artifact-file
