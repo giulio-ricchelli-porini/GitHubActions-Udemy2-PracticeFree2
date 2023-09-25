@@ -18,7 +18,7 @@ jobs:
           - environment: two
           - environment: three
     runs-on: ${{ matrix.os }}
-    environment: ${{ matrix.envir }}
+    environment: one
     steps:
       - name: "Echo var"
         shell: bash
