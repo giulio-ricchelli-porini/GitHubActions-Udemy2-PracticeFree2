@@ -1,0 +1,27 @@
+name: "Reuse workflow from other repository"
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+jobs:
+  matrix:
+    runs-on: $ {{ matrix.runs-on }}
+    environment: $ {{ matrix.environment }}
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, windows-latest]
+        environment: [one, two, three]
+        include:
+          - var: ${{ vars.VAR }}
+          - environment: {}
+        exclude:
+          - environment: two
+          - environment: three
+    steps:
+      - name: "Echo var"
+        shell: bash
+        run: echo ${{ matrix.var }}
+  reuse:
+    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/workflows/push-workflow_call.yml
+    with:
+      name: ${{ inputs.name }}
