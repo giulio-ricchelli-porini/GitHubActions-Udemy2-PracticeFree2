@@ -1,0 +1,28 @@
+name: "Use cache and artifacts"
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+jobs:
+  cache-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: "ls -a"
+        run: ls -a
+      - name: "Cache"
+        uses: actions/cache@v3
+        id: cache-step
+        with:
+          path: tocache/
+          key: cache-${{ hashFiles("**/tocache"}}
+      - name: "Create data to cache"
+        if: steps.cache-step.outputs.cache-hit != 'true'
+        run: |
+          mkdir tocache/
+          echo "${{ inputs.name }}" > tocache/file.txt
+          mkdir folder/
+          echo "${{ inputs.name }}" > tocache/folder/file.txt
+      - name: "Get file content"
+        run: cat tocache/file.txt
