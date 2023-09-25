@@ -73,6 +73,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: tocache-onlyfolder
-      - name: "ls -a (you see the two files directly and not inside the folder named 'folder')"
+      - name: "ls -a"
         run: ls -a
+      - name: "ls -a /folder"
+        run: ls -a /folder
   
