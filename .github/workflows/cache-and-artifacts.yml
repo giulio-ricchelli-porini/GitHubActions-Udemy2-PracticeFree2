@@ -38,7 +38,7 @@ jobs:
           path: tocache/
       - name: "Set output"
         id: output-step
-        run: echo "cache-hit=${{ steps.cache-step.outputs.cache-hit }}" >> GITHUB_OUTPUT
+        run: echo "cache-hit=${{ steps.cache-step.outputs.cache-hit }}" >> "$GITHUB_OUTPUT"
   download-artifact:
     runs-on: ubuntu-latest
     needs: cache-and-artifact-file
