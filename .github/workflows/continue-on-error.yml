@@ -22,9 +22,12 @@ jobs:
         run: exit 1
       - name: "Return success"
         id: success-step
+        env:
+          var_step: ${{ vars.SUCCESS_MESSAGE }}
         run: |
           echo "Message: ${{ vars.SUCCESS_MESSAGE }}"
-          echo "result=${{ vars.SUCCESS_MESSAGE }}" >> $GITHUB_OUTPUT
+          echo "result=$var_step" >> $GITHUB_OUTPUT
+          # echo "result=${{ vars.SUCCESS_MESSAGE }}" >> $GITHUB_OUTPUT
   continue-job:
     runs-on: ubuntu-latest
     needs: continue-step
