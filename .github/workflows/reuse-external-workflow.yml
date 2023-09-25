@@ -22,6 +22,6 @@ jobs:
         shell: bash
         run: echo ${{ matrix.var }}
   reuse:
-    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/workflows/push-workflow_call.yml
+    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/workflows/push-workflow_call.yml@main
     with:
       name: ${{ inputs.name }}
