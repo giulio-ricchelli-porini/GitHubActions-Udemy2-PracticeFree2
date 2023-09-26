@@ -1,4 +1,4 @@
-name: "Reuse workflow and action from other repositories"
+name: "Reuse workflow and action from other repositories with matrix"
 on:
   workflow_dispatch:
     inputs:
@@ -12,13 +12,13 @@ jobs:
         include:
           - var: ${{ vars.VAR }}
           - runs-on: ubuntu-latest
-            environment: {}
+            envir: {}
             var: ${{ vars.VAR }}
         exclude:
-          - environment: two
-          - environment: three
+          - envir: two
+          - envir: three
     runs-on: ${{ matrix.os }}
-    environment: one
+    environment: ${{ matrix.envir }}
     steps:
       - name: "Echo var"
         shell: bash
@@ -33,4 +33,4 @@ jobs:
       - name: "Call external action"
         uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/actions/composite-action@main
         with:
-          repo-secret: "super-secret"
+          repo-secret: "sssuper sssecret"
