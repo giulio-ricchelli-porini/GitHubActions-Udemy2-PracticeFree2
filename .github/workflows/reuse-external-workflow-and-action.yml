@@ -28,6 +28,6 @@ jobs:
     with:
       name: ${{ inputs.name }}
   call-external-action:
-    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/actions/composite-action
+    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/actions/composite-action@main
     with:
       repo-secret: "super-secret"
