@@ -27,3 +27,7 @@ jobs:
     uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/workflows/push-workflow_call.yml@main
     with:
       name: ${{ inputs.name }}
+  call-external-action:
+    uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/./.github/actions/composite-action
+    with:
+      repo-secret: "super-secret"
