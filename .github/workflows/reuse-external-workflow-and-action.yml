@@ -1,4 +1,4 @@
-name: "Reuse workflow and action from other repository"
+name: "Reuse workflow and action from other repositories"
 on:
   workflow_dispatch:
     inputs:
