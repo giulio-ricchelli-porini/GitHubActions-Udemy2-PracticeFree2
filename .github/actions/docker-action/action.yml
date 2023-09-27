@@ -1,0 +1,5 @@
+name: "Custom Docker action"
+description: "A Docker action to understand"
+runs:
+  using: "Docker"
+  image: "Dockerfile"
