@@ -4,7 +4,7 @@ on:
     types: [opened]
 jobs:
   action-caller:
-    runs-on: ubunutu-latest
+    runs-on: ubuntu-latest
     environment: dev
     steps:
       - name: "Invoke Docker action"
@@ -23,8 +23,8 @@ jobs:
     steps:
       - name: "Echo something because the needed job has continued even if on error"
         run: |
-          echo $GITHUB_SHA
-          echo ${{ toJson(github.event) }}
+          echo '$GITHUB_SHA'
+          echo '${{ toJson(github.event) }}'
   foo-error2:
     runs-on: ubuntu-latest
     steps:
@@ -34,8 +34,8 @@ jobs:
     needs: foo-error2
     if: failure() && needs.foo-error2.result == 'failure'
     steps:
-      - name: "Echo something because the needed job has continued even if on error"
+      - name: "Echo something because the needed job is on error but this job has a condition"
         run: |
-          echo $GITHUB_SHA
-          echo ${{ toJson(github.event) }}
+          echo '$GITHUB_SHA'
+          echo '${{ toJson(github.event) }}'
   
