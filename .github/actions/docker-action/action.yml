@@ -1,5 +1,13 @@
 name: "Custom Docker action"
 description: "A Docker action to understand"
+inputs:
+  name:
+    description: "Who to say hello to"
+  secret:
+    description: "A secret to echo"
+outputs:
+  random_number:
+    description: "A random number as a result"
 runs:
   using: "Docker"
   image: "Dockerfile"
