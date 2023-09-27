@@ -1,0 +1,41 @@
+name: "Invoke a local Docker custom action"
+on:
+  issues:
+    types: [opened]
+jobs:
+  action-caller:
+    runs-on: ubunutu-latest
+    environment: dev
+    steps:
+      - name: "Invoke Docker action"
+        uses: ./.github/actions/docker-action
+        with:
+          name: ${{ github.event_name }}
+          secret: ${{ secrets.SUCCESS_MESSAGE }}
+  foo-error1:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - run: exit 100
+  foo-echo1:
+    runs-on: ubuntu-latest
+    needs: foo-error1
+    steps:
+      - name: "Echo something because the needed job has continued even if on error"
+        run: |
+          echo $GITHUB_SHA
+          echo ${{ toJson(github.event) }}
+  foo-error2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 100
+  foo-echo2:
+    runs-on: ubuntu-latest
+    needs: foo-error2
+    if: failure() && needs.foo-error2.result == 'failure'
+    steps:
+      - name: "Echo something because the needed job has continued even if on error"
+        run: |
+          echo $GITHUB_SHA
+          echo ${{ toJson(github.event) }}
+  
