@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     steps:
-      - uses: github/checkout@v3
+      - uses: actions/checkout@v3
       - name: "Invoke Docker action"
         uses: ./.github/actions/docker-action
         with:
