@@ -1,0 +1,47 @@
+name: "Issue and PR handler"
+run-name: "Run on ${{ github.ref_name }}"
+on:
+  pull_request:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+  issues:
+    types: [opened]
+jobs:
+  pr_handler:
+    runs-on: ubuntu_latest
+    if: github.event.event_name == 'pull_request'
+    steps:
+      - name: "Echo the ref name, which is the the head branch name"
+        run: echo $GITHUB_REF_NAME
+  pr_t_handler:
+    runs-on: ubuntu_latest
+    if: github.event.event_name == 'pull_request_target'
+    steps:
+      - name: "Echo the ref name, which is the the base/target branch name"
+        run: echo $GITHUB_REF_NAME
+  issues_handler:
+    runs-on: ubuntu_latest
+    if: github.event.event_name == 'issues'
+    outputs:
+      actorres: ${{ steps.outputter.outputs.actor }}
+    steps:
+      - name: "Echo the event as json"
+        run: echo '${{ toJson(github.event) }}'
+      - name: "Timeout with continue-on-error step"
+        timeout-minutes: 1
+        continue-on-error: true
+        run: sleep 1000
+      - id: outputter
+        run: |
+          echo "actor=${{ github.triggering_actor }}" >> $GITHUB_OUTPUT
+          echo "actorenv=${{ github.triggering_actor }}" >> $GITHUB_ENV
+      - name: "Echo env variable from previous step"
+        run: echo $actorenv
+  following:
+      runs-on: ubuntu_latest
+      needs: issues_handler
+      steps:
+        - name: "Echo previous job result"
+          run: echo "${{ needs.issues_handler.outputs.actorres }}"
+  
