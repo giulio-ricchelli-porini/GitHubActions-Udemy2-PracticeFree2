@@ -8,6 +8,10 @@ on:
   issues:
     types: [opened]
 jobs:
+  echo-event-name:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.event.event_name }}"
   pr_handler:
     runs-on: ubuntu_latest
     if: github.event.event_name == 'pull_request'
