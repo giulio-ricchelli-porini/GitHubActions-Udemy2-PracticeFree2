@@ -14,19 +14,19 @@ jobs:
       - run: echo "${{ github.event_name }}"
   pr_handler:
     runs-on: ubuntu_latest
-    if: github.event.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'
     steps:
       - name: "Echo the ref name, which is the the head branch name"
         run: echo $GITHUB_REF_NAME
   pr_t_handler:
     runs-on: ubuntu_latest
-    if: github.event.event_name == 'pull_request_target'
+    if: github.event_name == 'pull_request_target'
     steps:
       - name: "Echo the ref name, which is the the base/target branch name"
         run: echo $GITHUB_REF_NAME
   issues_handler:
     runs-on: ubuntu_latest
-    if: github.event.event_name == 'issues'
+    if: github.event_name == 'issues'
     outputs:
       actorres: ${{ steps.outputter.outputs.actor }}
     steps:
@@ -42,6 +42,16 @@ jobs:
           echo "actorenv=${{ github.triggering_actor }}" >> $GITHUB_ENV
       - name: "Echo env variable from previous step"
         run: echo $actorenv
+      - name: "Post comment on issue"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 I'm GitHub Actions!'
+            })
   following:
       runs-on: ubuntu_latest
       needs: issues_handler
