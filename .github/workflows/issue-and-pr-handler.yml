@@ -29,6 +29,7 @@ jobs:
     if: github.event_name == 'issues'
     outputs:
       actorres: ${{ steps.outputter.outputs.actor }}
+    permissions: write-all
     steps:
       - name: "Echo the event as json"
         run: echo '${{ toJson(github.event) }}'
@@ -51,7 +52,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'I am GitHub Actions!'
+              body: 'I am GitHub Actions boy!'
             })
   following:
       runs-on: ubuntu-latest
