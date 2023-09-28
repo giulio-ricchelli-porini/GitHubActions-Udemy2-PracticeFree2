@@ -8,10 +8,13 @@ on:
   issues:
     types: [opened]
 jobs:
-  echo-event-name:
+  rnd:
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{ github.event_name }}"
+      - uses: giulio-ricchelli-porini/GitHubActions-Udemy2-PracticeFree1/.github/actions/composite-action/action.yml@main
+        with:
+          repo-secret: "whaaaaaat"
   pr_handler:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
