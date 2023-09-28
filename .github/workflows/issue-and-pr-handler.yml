@@ -43,14 +43,15 @@ jobs:
       - name: "Echo env variable from previous step"
         run: echo $actorenv
       - name: "Post comment on issue"
-        uses: actions/github-script@v6
+        uses: actions/github-script@v5
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.issues.createComment({
-              issue_number: ${{ github.event.number }},
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 I'm GitHub Actions!'
+              body: 'I'm GitHub Actions!'
             })
   following:
       runs-on: ubuntu-latest
